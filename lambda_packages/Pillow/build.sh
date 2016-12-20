@@ -1,5 +1,7 @@
 #!/bin/bash
 
+PILVER=3.4.2
+
 set -ex
 set -o pipefail
 
@@ -8,10 +10,10 @@ bucket="<YOUR BUCKET>"
 region="<YOUR REGION>"
 
 echo "do update"
-yum update -y
+sudo yum update -y
 
 echo "do dependcy install"
-yum install -y \
+sudo yum install -y \
 	gcc \
 	libtiff-devel \
 	libzip-devel \
@@ -33,23 +35,22 @@ echo "make env"
 	--python /usr/bin/python env \
 	--always-copy
 
-
-
 echo "activate env in `pwd`"
 source env/bin/activate
 
 echo "install pips"
-pip install --verbose --use-wheel pillow
+pip install --verbose --use-wheel Pillow==${PILVER}
 deactivate
 
 echo "tar lib and lib64"
-mkdir Pillow-3.1.1
-cp -a env/lib/python2.7/site-packages/. Pillow-3.1.1/
-cp -a env/lib64/python2.7/site-packages/. Pillow-3.1.1/
-cd Pillow-3.1.1/ && tar -zcvf ../Pillow-3.1.1.tar.gz * && cd ..
+mkdir Pillow-${PILVER}
+cp -a env/lib64/python2.7/site-packages/PIL Pillow-${PILVER}/
+cp -a env/lib64/python2.7/site-packages/libwebp* Pillow-${PILVER}/
+strip -x Pillow-${PILVER}/PIL/*.so
+cd Pillow-${PILVER}/ && tar -zcvf ../Pillow-${PILVER}.tar.gz * && cd ..
 
 #make lambda test
-cd Pillow-3.1.1/
+cd Pillow-${PILVER}/
 wget https://raw.githubusercontent.com/Miserlou/lambda-packages/master/lambda_packages/Pillow/test/test.jpg
 wget https://raw.githubusercontent.com/Miserlou/lambda-packages/master/lambda_packages/Pillow/test/test.py
 zip -r9 ../test.zip * && cd ..
@@ -58,5 +59,5 @@ if [ "$bucket" != "<YOUR BUCKET>" ] && [ "$region" != "<YOUR REGION>" ]
 	then
 		echo "uploading to $bucket in $region"
 		aws s3 cp test.zip s3://$bucket/$dir/test.zip --region $region
-		aws s3 cp Pillow-3.1.1.tar.gz s3://$bucket/$dir/Pillow-3.1.1.tar.gz --region $region
+		aws s3 cp Pillow-${PILVER}.tar.gz s3://$bucket/$dir/Pillow-${PILVER}.tar.gz --region $region
 fi
