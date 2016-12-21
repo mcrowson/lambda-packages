@@ -15,6 +15,10 @@ lambda_packages = {
         'version': '3.6.0',
         'path': os.path.join(os.path.dirname(os.path.abspath(__file__)), 'lxml', 'lxml-3.6.0.tar.gz')
     },
+    'misaka': {
+        'version': '2.0.0',
+        'path': os.path.join(os.path.dirname(os.path.abspath(__file__)), 'misaka', 'misaka-2.0.0.tar.gz')
+    },
     'MySQL-Python': {
         'version': '1.2.5',
         'path': os.path.join(os.path.dirname(os.path.abspath(__file__)), 'MySQL-Python', 'MySQL-Python-1.2.5.tar.gz')
@@ -23,9 +27,9 @@ lambda_packages = {
         'version': '1.10.4',
         'path': os.path.join(os.path.dirname(os.path.abspath(__file__)), 'numpy', 'numpy-1.10.4.tar.gz')
     },
-    'Pillow':{
-    	'version':'3.1.1',
-    	'path': os.path.join(os.path.dirname(os.path.abspath(__file__)), 'Pillow', 'Pillow-3.1.1.tar.gz')
+    'Pillow': {
+        'version': '3.4.2',
+        'path': os.path.join(os.path.dirname(os.path.abspath(__file__)), 'Pillow', 'Pillow-3.4.2.tar.gz')
     },
     'psycopg2': {
         'version': '2.6.1',
@@ -48,7 +52,12 @@ lambda_packages = {
     },
     'pyproj': {
         'version': '1.9.5',
-        'path': os.path.join(os.path.dirname(os.path.abspath(__file__)), 
+        'path': os.path.join(os.path.dirname(os.path.abspath(__file__)),
                              'pyproj', 'pyproj.4-4.9.2.tar.gz')
+    },
+    'bcrypt': {
+        'version': '3.1.1',
+        'path': os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                             'bcrypt', 'bcrypt-3.1.1.tar.gz')
     }
 }
