@@ -19,7 +19,13 @@ Currently includes support for:
 * PyNaCl
 * cryptography
 * cffi
-* pyproj
+* theano
+* sklearn
+* pyyaml
+* keras
+* h5py
+* scipy
+* pandas
 
 This project is intended for use by [Zappa](https://github.com/Miserlou/Zappa), but could also be used by any Python/Lambda project.
 
@@ -50,9 +56,12 @@ To add support for more packages, send a pull request containing a gzipped tarba
 
 You may find the [build.sh script](https://github.com/Miserlou/lambda-packages/blob/master/lambda_packages/cryptography/build.sh) useful as a starting point. 
 
+Building locally may be possible with docker. For example, to build numpy 1.11.3 you would run the following. Ensure that you are in the lambda-packages directory so that the container can have access to the build script. 
+
+```bash
+docker run --rm -v $(pwd):/root -w /root mcrowson/lambda_package_builder /bin/bash build.sh numpy 1.11.3
+```
+
 Useful targets include:
 
 * MongoEngine
-* pandas
-* scipy
-* [scikit-learn](https://serverlesscode.com/post/deploy-scikitlearn-on-lamba/)
